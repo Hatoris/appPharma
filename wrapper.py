@@ -29,6 +29,7 @@ def sameUnits():
 def changeUnits(*units, **kunits):
     """use it above function @changeUnits('kg', 'umol/l', d = 'unityouwant', z = 'ignore' ) to change unit as wich"""
     def units_decorator(func):
+        @pkg.wraps(func)
         def func_wraper(*unit, **kunit):
             values = [] 
             kvalues = []

@@ -77,12 +77,12 @@ def content(mass, volume):
     mass : string 
         mass of element '7.5g' or '2oz' 
     volume : string
-        volume wich contain element  '180ml' or '1l'
+        volume wich contain element  '180ml' or '2ozl'
 
     Returns
     -------
-    string
-        results %
+    	pint.quantity
+        quantity in percent
 
     Raises
     ------
@@ -97,6 +97,29 @@ def content(mass, volume):
     
 @wrapper.changeUnits('inch', F = 'ignore')
 def iw(size, F = False):
+    """
+    calcul ideal weight 
+
+    Parameters
+    ----------
+    size : string 
+        size of patient '180cm' or '65inch' 
+    F : boolean, optional
+        specify sex by default is False for man, pass True if patient is woman
+
+    Returns
+    -------
+    pint.quantity
+        quantity in kilogram 
+
+    Raises
+    ------
+
+    Exemple
+    --------
+    >>>calculPharma.iw('180cm', F = True)
+    >>><Quantity(70.4921, 'kilogram')>
+    """
     if F:
         PI = 45.5 + 2.3 * (size.magnitude - 60)
     else:
@@ -104,11 +127,36 @@ def iw(size, F = False):
     return pkg.ureg(str(PI) + 'kg')
     
 @wrapper.changeUnits('kg', 'ignore', F = 'ignore')
-def aw(weight, piorsize, F = False):
+def aw(weight, iwORsize, F = False):
+    """
+    calcul adapted weight 
+
+    Parameters
+    ----------
+    weight : string
+        weight of patient '90kg' or '180lb'
+    iwORsize : string
+        iw of patient '75.2kg' or '182lb' OR size of patient '1.80m' or '6foot'
+    F : boolean, optional
+        specify sex by default is False for man, pass True if patient is woman
+
+    Returns
+    -------
+    pint.quantity
+        quantity in kilogram 
+
+    Raises
+    ------
+
+    Exemple
+    --------
+    >>>calculPharma.iw('180cm', F = True)
+    >>><Quantity(70.4921, 'kilogram')>
+    """
     w = weight
-    p = pkg.ureg(piorsize)
+    p = pkg.ureg(iwORsize)
     if str(p.dimensionality) == '[mass]':
-        pa = p + 0.4 * (w - p)
+        pa = p.to('kg') + 0.4 * (w - p.to('kg'))
     elif str(p.dimensionality) == '[length]':
         pi = iw(p, F = F)
         pa = pi + 0.4 * (w - pi)

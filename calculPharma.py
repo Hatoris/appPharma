@@ -69,7 +69,29 @@ def bsa(weight, size):
     
 @wrapper.changeUnits('g', 'ml') 
 def content(mass, volume):
-   " return teneur in % (g/100mL)"
+   """
+    calcul the content of solution in %
+
+    Parameters
+    ----------
+    mass : string 
+        mass of element '7.5g' or '2oz' 
+    volume : string
+        volume wich contain element  '180ml' or '1l'
+
+    Returns
+    -------
+    string
+        results %
+
+    Raises
+    ------
+
+    Exemple
+    --------
+    >>>calculPharma.content('2g', '1l')
+    >>><Quantity(0.2, 'percent')>
+    """
    return pkg.ureg('{0} percent'.format((mass * 100 / volume).magnitude)) 
    
     

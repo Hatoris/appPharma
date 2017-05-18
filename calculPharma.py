@@ -70,7 +70,7 @@ def bsa(weight, size):
 @wrapper.changeUnits('g', 'ml') 
 def content(mass, volume):
    " return teneur in % (g/100mL)"
-   return pkg.ureg('{0}%'.format((mass * 100 / volume).magnitude)) 
+   return pkg.ureg('{0} percent'.format((mass * 100 / volume).magnitude)) 
    
     
 @wrapper.changeUnits('inch', F = 'ignore')

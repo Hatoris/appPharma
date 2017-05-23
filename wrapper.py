@@ -1,5 +1,5 @@
 #wrraper function
-from . import pkg
+from appPharma import pkg
 
 
 def changeUnit(*units):
@@ -32,20 +32,20 @@ def changeUnits(*units, **kunits):
         @pkg.wraps(func)
         def func_wraper(*unit, **kunit):
             values = [] 
-            kvalues = []
-            k = list(kunit.keys())
-            k.sort() 
+            kvalues = {}
+            #k = list(kunit.keys())
+            #k.sort() 
             for i in range(len(unit)):
                 if units[i] != 'ignore':
                     values.append(pkg.Q_(unit[i]).to(units[i]))
                 else:
                     values.append(unit[i])
             if kunit is not None:
-                for key in k:
+                for key in kunit:
                     if kunits[key] != 'ignore':
-                        values.append(pkg.Q_(kunit[key]).to(kunits[key]))
+                        kvalues[key] = pkg.Q_(kunit[key]).to(kunits[key])
                     else:
-                        values.append(kunit[key])
-            return func(*values)
+                        kvalues[key] = kunit[key]
+            return func(*values, **kvalues)
         return func_wraper
     return units_decorator

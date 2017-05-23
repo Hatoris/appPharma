@@ -206,9 +206,3 @@ def clairanceC(age, masse, crea, F = False, min = False, size = False):
         else:
             clai = pkg.ureg(clai)
     return clai
-
-if __name__ == '__main__':
-    print(clairanceC(27,'80kg','90umol/l'))
-    print(clairanceC(27,'80kg','90umol/l', F= True))
-    print(clairanceC(27,'80kg','90umol/l', size = '180cm', min = True))
-    print(clairanceC(27,'80kg','90umol/l', F= True, min = True))

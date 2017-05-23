@@ -1,2 +1,2 @@
 # appPharma
-Application to perform pharmaceutical Calculus 
+Application to perform pharmaceutical calculations 

@@ -163,8 +163,8 @@ def aw(weight, iwORsize, F = False):
     return pa
     	
     	
-@wrapper.changeUnits('ignore', 'kg', 'umol/l', F = 'ignore', min = 'ignore', size = 'inch') 
-def clairanceC(age, masse, crea, F = False, min = False, size = False):
+@wrapper.changeUnits('ignore', 'kg', 'umol/l', F = 'ignore', min = 'ignore', size = 'ignore')
+def clairanceC(age, weight, crea, F = False, min = False, size = False):
     """    this function Calcul clairance of patient
         require parameters :
         - age : integer (58)
@@ -178,13 +178,13 @@ def clairanceC(age, masse, crea, F = False, min = False, size = False):
     clai = 0
     bmis = 0
     if size:
-        bmis = bmi(masse, size)
+        bmis = bmi(weight, size)
         bmis = bmis.magnitude
     if bmis < 30:
         if F:      
-            clai = str((((140 - age) * masse.magnitude) / (50 * crea.magnitude) * 0.85)) + 'ml/s'
-        else: 
-            clai = str(((140 - age) * masse.magnitude) / (50 * crea.magnitude)) + 'ml/s'
+            clai = str((((140 - age) * weight.magnitude) / (50 * crea.magnitude)) * 0.85) + 'ml/s'
+        else:
+            clai = str(((140 - age) * weight.magnitude) / (50 * crea.magnitude)) + 'ml/s'
         if min:
             clai = pkg.ureg(clai) * pkg.ureg('60s/min') 
         else:

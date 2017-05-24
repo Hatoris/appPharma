@@ -6,10 +6,12 @@ Usage:
     calculPharma bsa <weight> <size>
     calculPharma content <mass> <volume>
     calculPharma aw <weight> (<idealweight> | <size> [--sex <sex>])
+    calculPharma clairance <age> <weight> <creatine> [--sex <sex>] [--min <time>] [--size <size>]
 
 Options:
     -h --help    choose one Calcul from Calcul pharma to perform
     -sx --sex     sex of patient by default: F = False
+    -m --min    time in second by default or in minute if set to True
 
 
 Informations:
@@ -18,6 +20,8 @@ Informations:
     sex = by default sexe is man if set to True sex is woman
     mass = mass of compound in lb, g ...
     volume = volume of solution in mL, ozlquide, L ...
+    age = patient age
+    creatine = dosage of patient's creatine in mol/L
 
 """
 
@@ -40,5 +44,7 @@ if __name__ == "__main__":
             print(appPharma.calculPharma.aw(args["<weight>"], args["<idealweight>"]))
         elif args['<size>']:
             print(appPharma.calculPharma.aw(args["<weight>"], args["<size>"], F = args["<sex>"]))
+    elif args['clairance']:
+        print(appPharma.calculPharma.clairanceC(int(args["<age>"]), args["<weight>"], args["<creatine>"], F = args["<sex>"], min = args["<time>"], size = args["<size>"]))
 
 

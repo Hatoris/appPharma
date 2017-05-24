@@ -1,4 +1,4 @@
-from .pkg import *
+from appPharma import pkg
 """
 	parameter for alligation 
 	a        pa
@@ -18,22 +18,27 @@ class alligation:
         self.pa = 0
         self.pb = 0
         self.pc = 0
+        self.pera = 0
+        self.perb = 0
+        self.perc = 0
         if any(d in kwargs for d in ('a', 'b')):
-            A = ureg(kwargs['a']).to(ureg(kwargs['b']).units)
-            if A < ureg(kwargs['b']):
-                self.a = ureg(kwargs['b']) 
+            A = pkg.ureg(kwargs['a']).to(pkg.ureg(kwargs['b']).units)
+            if A < pkg.ureg(kwargs['b']):
+                self.a = pkg.ureg(kwargs['b']) 
                 self.b = A
             else:
                 self.a = A
-                self.b = ureg(kwargs['b']) 
+                self.b = pkg.ureg(kwargs['b']) 
         if 'c' in kwargs:
-            self.c = ureg(kwargs['c']) 
+            self.c = pkg.ureg(kwargs['c']) 
         if 'pa' in kwargs:
             self.pa = kwargs['pa']
         if 'pb' in kwargs:
             self.pb = kwargs['pb']
         if 'pc' in kwargs:
             self.pc = kwargs['pc']
+        self.alliCalcul()
+        self.percent()
         
     def alliCalcul(self):
         if self.a !=0 and self.c !=0:
@@ -46,7 +51,12 @@ class alligation:
             self.pa = float(self.pc) - float(self.pb) 
         if self.pa !=0 and self.pb !=0:
             self.pc = float(self.pa) + float(self.pb) 
-        
+
+    def percent(self):
+        if self.pa != 0 and self.pc != 0:
+            self.pera = pkg.ureg(str(self.pa / self.pc * 100) + 'percent')
+        if self.pb != 0 and self.pc != 0:
+            self.perb = pkg.ureg(str(self.pb / self.pc * 100) + 'percent') 
         
         
 
@@ -58,7 +68,10 @@ if __name__ == '__main__':
     print(a.pa)
     print(a.pb)
     print(a.pc)
-    a.alliCalcul()
+    #a.alliCalcul()
     print(a.pa)
     print(a.pb)
     print(a.pc)
+    #a.percent()
+    print(a.pera)
+    print(a.perb)

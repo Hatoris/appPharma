@@ -12,6 +12,7 @@ Options:
     -h --help    choose one Calcul from Calcul pharma to perform
     -sx --sex     sex of patient by default: F = False
     -m --min    time in second by default or in minute if set to True
+    -s --size   size of patient in length unit
 
 
 Informations:
@@ -45,6 +46,13 @@ if __name__ == "__main__":
         elif args['<size>']:
             print(appPharma.calculPharma.aw(args["<weight>"], args["<size>"], F = args["<sex>"]))
     elif args['clairance']:
-        print(appPharma.calculPharma.clairanceC(int(args["<age>"]), args["<weight>"], args["<creatine>"], F = args["<sex>"], min = args["<time>"], size = args["<size>"]))
+        if args["<age>"] and args["<weight>"] and args["<creatine>"] and args["<sex>"] and args["<time>"] and args["<size>"]:
+            print(appPharma.calculPharma.clairanceC(int(args["<age>"]), args["<weight>"], args["<creatine>"], F = args["<sex>"], min = args["<time>"], size = args["<size>"]))
+        elif args["<age>"] and args["<weight>"] and args["<creatine>"] and args["<sex>"] and args["<time>"]:
+             print(appPharma.calculPharma.clairanceC(int(args["<age>"]), args["<weight>"], args["<creatine>"], F = args["<sex>"], min = args["<time>"]))
+        elif args["<age>"] and args["<weight>"] and args["<creatine>"] and args["<sex>"] and args["<size>"]:
+            print(appPharma.calculPharma.clairanceC(int(args["<age>"]), args["<weight>"], args["<creatine>"], F = args["<sex>"], size = args["<size>"]))
+        elif args["<age>"] and args["<weight>"] and args["<creatine>"] and args["<time>"] and args["<size>"]:
+            print(appPharma.calculPharma.clairanceC(int(args["<age>"]), args["<weight>"], args["<creatine>"], min = args["<time>"], size = args["<size>"]))
 
 

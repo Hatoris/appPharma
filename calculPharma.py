@@ -163,7 +163,7 @@ def aw(weight, iwORsize, F = False):
     return pa
     	
     	
-@wrapper.changeUnits('ignore', 'kg', 'umol/l', F = 'ignore', min = 'ignore', size = 'ignore')
+@wrapper.changeUnits('ignore', 'kg', 'umol/l', F = 'ignore', min = 'ignore', size = 'inch')
 def clairanceC(age, weight, crea, F = False, min = False, size = False):
     """    this function Calcul clairance of patient
         require parameters :

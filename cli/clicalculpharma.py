@@ -1,18 +1,19 @@
 """cli application to perform calcul
 
 Usage:
-    calculPharma bmi <weight> <size>
-    calculPharma iw <size> [--sex <sex>]
-    calculPharma bsa <weight> <size>
-    calculPharma content <mass> <volume>
-    calculPharma aw <weight> (<idealweight> | <size> [--sex <sex>])
-    calculPharma clairance <age> <weight> <creatine> [--sex <sex>] [--min <time>] [--size <size>]
+    calculPharma bmi (--infos | <weight> <size>)
+    calculPharma iw (--infos | <size> [--sex])
+    calculPharma bsa (--infos | <weight> <size>)
+    calculPharma content (--infos | <mass> <volume>)
+    calculPharma aw (--infos | <weight> <idealweightorsize> [--sex])
+    calculPharma clairance (--infos | <age> <weight> <creatine> [<size> --sex --min]) 
 
 Options:
     -h --help    choose one Calcul from Calcul pharma to perform
-    -sx --sex     sex of patient by default: F = False
+    -i --infos   give information on calcul
+    -s --sex     sex of patient by default: F = False
     -m --min    time in second by default or in minute if set to True
-    -s --size   size of patient in length unit
+    
 
 
 Informations:
@@ -33,26 +34,36 @@ if __name__ == "__main__":
     args = docopt.docopt(__doc__, version='0.1')
 
     if args['bmi']:
-        print(appPharma.calculPharma.bmi(args["<weight>"], args["<size>"]))
+        if args["--infos"]:
+            help(appPharma.calculPharma.bmi)
+        else:
+            print(appPharma.calculPharma.bmi(args["<weight>"], args["<size>"]))
     elif args['iw']:
-        print(appPharma.calculPharma.iw(args["<size>"], F = args["<sex>"]))
+        if args["--infos"]:
+            help(appPharma.calculPharma.iw)
+        else:
+            print(appPharma.calculPharma.iw(args["<size>"], F = args["--sex"]))
     elif args['bsa']:
-        print(appPharma.calculPharma.bsa(args["<weight>"], args["<size>"]))
+        if args["--infos"]:
+            help(appPharma.calculPharma.bsa)
+        else:
+            print(appPharma.calculPharma.bsa(args["<weight>"], args["<size>"]))
     elif args['content']:
-        print(appPharma.calculPharma.content(args["<mass>"], args["<volume>"]))
+        if args["--infos"]:
+            help(appPharma.calculPharma.content)
+        else:
+            print(appPharma.calculPharma.content(args["<mass>"], args["<volume>"]))
     elif args['aw']:
-        if args['<idealweight>']:
-            print(appPharma.calculPharma.aw(args["<weight>"], args["<idealweight>"]))
-        elif args['<size>']:
-            print(appPharma.calculPharma.aw(args["<weight>"], args["<size>"], F = args["<sex>"]))
+        if args["--infos"]:
+            help(appPharma.calculPharma.aw)
+        else:
+            print(appPharma.calculPharma.aw(args["<weight>"], args["<idealweightorsize>"], F = args["--sex"]))
     elif args['clairance']:
-        if args["<age>"] and args["<weight>"] and args["<creatine>"] and args["<sex>"] and args["<time>"] and args["<size>"]:
-            print(appPharma.calculPharma.clairanceC(int(args["<age>"]), args["<weight>"], args["<creatine>"], F = args["<sex>"], min = args["<time>"], size = args["<size>"]))
-        elif args["<age>"] and args["<weight>"] and args["<creatine>"] and args["<sex>"] and args["<time>"]:
-             print(appPharma.calculPharma.clairanceC(int(args["<age>"]), args["<weight>"], args["<creatine>"], F = args["<sex>"], min = args["<time>"]))
-        elif args["<age>"] and args["<weight>"] and args["<creatine>"] and args["<sex>"] and args["<size>"]:
-            print(appPharma.calculPharma.clairanceC(int(args["<age>"]), args["<weight>"], args["<creatine>"], F = args["<sex>"], size = args["<size>"]))
-        elif args["<age>"] and args["<weight>"] and args["<creatine>"] and args["<time>"] and args["<size>"]:
-            print(appPharma.calculPharma.clairanceC(int(args["<age>"]), args["<weight>"], args["<creatine>"], min = args["<time>"], size = args["<size>"]))
-
+        if args["--infos"]:
+            help(appPharma.calculPharma.clairanceC)
+        else:
+            if args["<size>"]:
+                print(appPharma.calculPharma.clairanceC(int(args["<age>"]), args["<weight>"], args["<creatine>"], F=args["--sex"],min=args["--min"], size=args["<size>"]))
+            else:
+                print(appPharma.calculPharma.clairanceC(int(args["<age>"]), args["<weight>"], args["<creatine>"], F=args["--sex"], min=args["--min"]))
 

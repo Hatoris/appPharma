@@ -165,15 +165,36 @@ def aw(weight, iwORsize, F = False):
     	
 @wrapper.changeUnits('ignore', 'kg', 'umol/l', F = 'ignore', min = 'ignore', size = 'inch')
 def clairanceC(age, weight, crea, F = False, min = False, size = False):
-    """    this function Calcul clairance of patient
-        require parameters :
-        - age : integer (58)
-        - weight : string ('75kg') 
-        - creatine serique : string ('140umol/l')
-        optional parameters :
-        - F : boolean (F = True) [F = False] *specify sex
-        - min : boolean (min = True) [min = False] *specify if you want results in minute
-        - size : string (size = '180cm') [size = False] *specify size if patient is above 80 year or bmi > 30 
+    """
+    calcul adapted weight 
+
+    Parameters
+    ----------
+    age : integer
+        patient age
+    weight : string
+        weight of patient '90kg' or '180lb'
+    crea : string
+        patient concentration of creatine serique of patient '145umol/l'
+    F : boolean, optional
+        specify sex by default is False for man, pass True if patient is woman
+    min : boolean, optional
+        specify if you want result in second by default is False, pass True if you want it in minute
+    size : string, optional
+        size of patient '1.80m' or '6foot' mendatory if patient have a BMI > 30 or age > 80
+
+    Returns
+    -------
+    pint.quantity
+        quantity in milliter / second OR milliter / minute
+
+    Raises
+    ------
+
+    Exemple
+    --------
+    >>>calculPharma.clairanceC(27, "80kg", "145umol/l", F = True, min = True, size = "160cm")
+    >>><Quantity(41.63818354602227, 'milliliter / minute')>
     """
     clai = 0
     bmis = 0
@@ -181,7 +202,7 @@ def clairanceC(age, weight, crea, F = False, min = False, size = False):
         bmis = bmi(weight, size)
         bmis = bmis.magnitude
     if bmis < 30:
-        if F:      
+        if F:
             clai = str((((140 - age) * weight.magnitude) / (50 * crea.magnitude)) * 0.85) + 'ml/s'
         else:
             clai = str(((140 - age) * weight.magnitude) / (50 * crea.magnitude)) + 'ml/s'

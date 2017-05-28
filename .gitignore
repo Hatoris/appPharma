@@ -1,3 +1,4 @@
 !.gitignore
 __pycache__
 .last_tmp.py
+.idea

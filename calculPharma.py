@@ -227,3 +227,27 @@ def clairanceC(age, weight, crea, F = False, min = False, size = False):
         else:
             clai = pkg.ureg(clai)
     return clai
+    
+def imperialSize(ftinch, conv = False):
+    try :
+        #str(pkg.ureg(ftinch).dimensionality) == "[length]":
+        if conv:
+            return pkg.ureg(ftinch).to(conv)
+        else:
+           f = pkg.ureg(ftinch)
+           inc = f.to("inch")
+           ft = f.to("feet") 
+           ic = round(inc.magnitude) - round(ft.magnitude) * 12
+           if ic < 0:
+               return str(round(ft.magnitude) - 1) + "'" + str(12 + ic)
+           else:
+               return str(round(ft.magnitude)) + "'" + str(ic)
+    except:
+        foot, inch = ftinch.split("'")
+        if conv:
+            val = pkg.ureg(foot+"foot").to('inch') + pkg.ureg(inch + "inch") 
+            return val.to(conv)
+        else:
+            return ftinch
+    
+    

@@ -11,7 +11,7 @@ this module aim to perform stand alone calculation :
 
 from appPharma import pkg, wrapper
        
-
+@wrapper.convertImperialSize
 @wrapper.changeUnits('kg', 'm') 
 def bmi(weight, size):
     """
@@ -39,6 +39,7 @@ def bmi(weight, size):
     """
     return (weight / (size**2)).to('kg/m**2')
 
+@wrapper.convertImperialSize
 @wrapper.changeUnits('kg', 'cm') 
 def bsa(weight, size):
     """
@@ -95,7 +96,7 @@ def content(mass, volume):
     """
    return pkg.ureg('{0} percent'.format((mass * 100 / volume).magnitude)) 
    
-    
+@wrapper.convertImperialSize
 @wrapper.changeUnits('inch', F = 'ignore')
 def iw(size, F = False):
     """
@@ -126,7 +127,8 @@ def iw(size, F = False):
     else:
         PI = 50 + 2.3 * (size.magnitude - 60)
     return pkg.ureg(str(PI) + 'kg')
-    
+
+@wrapper.convertImperialSize  
 @wrapper.changeUnits('kg', 'ignore', F = 'ignore')
 def aw(weight, iwORsize, F = False):
     """
@@ -163,7 +165,7 @@ def aw(weight, iwORsize, F = False):
         pa = pi + 0.4 * (w - pi)
     return pa
     	
-    	
+@wrapper.convertImperialSize  	
 @wrapper.changeUnits('ignore', 'kg', 'umol/l', F = 'ignore', min = 'ignore', size = 'inch')
 def clairanceC(age, weight, crea, F = False, min = False, size = False):
     """

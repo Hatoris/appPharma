@@ -6,6 +6,7 @@ this module aim to perform stand alone calculation :
 - iw : ideal weight 
 - aw : adjusted weight
 - clairanceC : creatine's clairance
+- imperialSize : convert size to f'i size or reverse
 """
 
 from appPharma import pkg, wrapper
@@ -229,8 +230,34 @@ def clairanceC(age, weight, crea, F = False, min = False, size = False):
     return clai
     
 def imperialSize(ftinch, conv = False):
+    """
+    return readable human imperial size or convert imperial size to another length unit
+
+    Parameters
+    ----------
+    ftinch : string 
+        string of human imperial size or size "5'11" or '180cm' 
+    conv : string, optional
+        string of size unit 'cm', let it empty for return in human imperial size
+
+    Returns
+    -------
+    	string
+    	    "5'11"
+    pint.quantity
+        quantity in given conversation unit
+
+    Raises
+    ------
+
+    Exemple
+    --------
+    >>>calculPharma.imperialSize("5'11", 'cm')
+    >>><Quantity(180.34 , 'centimeter')>
+    >>>calculPharma.imperialSize("180cm")
+    >>>"5'11"
+    """
     try :
-        #str(pkg.ureg(ftinch).dimensionality) == "[length]":
         if conv:
             return pkg.ureg(ftinch).to(conv)
         else:

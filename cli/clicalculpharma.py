@@ -6,7 +6,8 @@ Usage:
     calculPharma bsa (--infos | <weight> <size>)
     calculPharma content (--infos | <mass> <volume>)
     calculPharma aw (--infos | <weight> <idealweightorsize> [--sex])
-    calculPharma clairance (--infos | <age> <weight> <creatine> [<size> --sex --min]) 
+    calculPharma clairance (--infos | <age> <weight> <creatine> [<size> --sex --min])
+    calculPharma impSize (--infos | <size> [<conversion>]) 
 
 Options:
     -h --help    choose one Calcul from Calcul pharma to perform
@@ -24,6 +25,7 @@ Informations:
     volume = volume of solution in mL, ozlquide, L ...
     age = patient age
     creatine = dosage of patient's creatine in mol/L
+    conversion = unit to return 
 
 """
 
@@ -66,4 +68,12 @@ if __name__ == "__main__":
                 print(appPharma.calculPharma.clairanceC(int(args["<age>"]), args["<weight>"], args["<creatine>"], F=args["--sex"],min=args["--min"], size=args["<size>"]))
             else:
                 print(appPharma.calculPharma.clairanceC(int(args["<age>"]), args["<weight>"], args["<creatine>"], F=args["--sex"], min=args["--min"]))
+    elif args['impSize']:
+        if args["--infos"]:
+            help(appPharma.calculPharma.imperialSize)
+        else:
+            if args['<conversion>']:
+                print(appPharma.calculPharma.imperialSize(args['<size>'], args['<conversion>']))
+            else:
+                print(appPharma.calculPharma.imperialSize(args['<size>'])) 
 

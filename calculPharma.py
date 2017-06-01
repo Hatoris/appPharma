@@ -237,7 +237,7 @@ def imperialSize(ftinch, conv = False):
            f = pkg.ureg(ftinch)
            inc = f.to("inch")
            ft = f.to("feet") 
-           ic = round(inc.magnitude) - round(ft.magnitude) * 12
+           ic = round(inc.magnitude)  - round(ft.magnitude) * 12
            if ic < 0:
                return str(round(ft.magnitude) - 1) + "'" + str(12 + ic)
            else:

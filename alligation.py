@@ -61,7 +61,7 @@ class alligation:
         
 
 if __name__ == '__main__':
-    a = alligation(a='1g/l', b='4mg/ml', c='3mg/ml', pc='3')
+    a = alligation(a='25g/100ml', b='125mg/ml', c='7500mg/50ml')
     print(a.a)
     print(a.b)
     print(a.c)

@@ -11,7 +11,6 @@ this module aim to perform stand alone calculation :
 
 from appPharma import pkg, wrapper
        
-@wrapper.convertImperialSize
 @wrapper.changeUnits('kg', 'm') 
 def bmi(weight, size):
     """
@@ -39,7 +38,6 @@ def bmi(weight, size):
     """
     return (weight / (size**2)).to('kg/m**2')
 
-@wrapper.convertImperialSize
 @wrapper.changeUnits('kg', 'cm') 
 def bsa(weight, size):
     """
@@ -69,17 +67,16 @@ def bsa(weight, size):
     BSA = pkg.ureg(str(BSA.magnitude) + 'm**2') 
     return BSA
     
-@wrapper.changeUnits('g', 'ml') 
-def content(mass, volume):
+@wrapper.changeUnits('g/ml') 
+def content(conc):
    """
     calcul the content of solution in %
 
     Parameters
     ----------
-    mass : string 
-        mass of element '7.5g' or '2oz' 
-    volume : string
-        volume wich contain element  '180ml' or '2ozl'
+    conc : string 
+        concentration of element '1kg/L' or '100mg/50ml' 
+   
 
     Returns
     -------
@@ -91,12 +88,11 @@ def content(mass, volume):
 
     Exemple
     --------
-    >>>calculPharma.content('2g', '1l')
-    >>><Quantity(0.2, 'percent')>
+    >>>calculPharma.content('1kg/l')
+    >>><Quantity(100, 'percent')>
     """
-   return pkg.ureg('{0} percent'.format((mass * 100 / volume).magnitude)) 
-   
-@wrapper.convertImperialSize
+   return pkg.ureg('{0} %'.format((conc * 100).magnitude)) 
+
 @wrapper.changeUnits('inch', F = 'ignore')
 def iw(size, F = False):
     """
@@ -128,7 +124,7 @@ def iw(size, F = False):
         PI = 50 + 2.3 * (size.magnitude - 60)
     return pkg.ureg(str(PI) + 'kg')
 
-@wrapper.convertImperialSize  
+  
 @wrapper.changeUnits('kg', 'ignore', F = 'ignore')
 def aw(weight, iwORsize, F = False):
     """
@@ -165,7 +161,7 @@ def aw(weight, iwORsize, F = False):
         pa = pi + 0.4 * (w - pi)
     return pa
     	
-@wrapper.convertImperialSize  	
+ 	
 @wrapper.changeUnits('ignore', 'kg', 'umol/l', F = 'ignore', min = 'ignore', size = 'inch')
 def clairanceC(age, weight, crea, F = False, min = False, size = False):
     """

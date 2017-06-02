@@ -67,7 +67,7 @@ def bsa(weight, size):
     BSA = pkg.ureg(str(BSA.magnitude) + 'm**2') 
     return BSA
     
-@wrapper.changeUnits('g/ml') 
+@wrapper.changeUnits('ignore') 
 def content(conc):
    """
     calcul the content of solution in %
@@ -91,7 +91,10 @@ def content(conc):
     >>>calculPharma.content('1kg/l')
     >>><Quantity(100, 'percent')>
     """
-   return pkg.ureg('{0} %'.format((conc * 100).magnitude)) 
+   if str(conc.dimensionality) == "[mass] / [length] ** 3":
+       return pkg.ureg('{0} percent'.format((conc * 100).magnitude))
+   else:
+       return pkg.ureg('{0} g/ml'.format((conc / 100).magnitude))
 
 @wrapper.changeUnits('inch', F = 'ignore')
 def iw(size, F = False):

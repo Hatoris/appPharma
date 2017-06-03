@@ -160,7 +160,7 @@ def aw(weight, iwORsize, F = False):
     if str(p.dimensionality) == '[mass]':
         pa = p.to('kg') + 0.4 * (w - p.to('kg'))
     elif str(p.dimensionality) == '[length]':
-        pi = iw(p, F = F)
+        pi = iw(str(p), F = F)
         pa = pi + 0.4 * (w - pi)
     return pa
     	

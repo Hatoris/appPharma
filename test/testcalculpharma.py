@@ -34,7 +34,7 @@ class TestCalculPharma(unittest.TestCase):
         self.assertEqual(self.bsa, appPharma.pkg.ureg('2.0553483741854244 meter ** 2'))
 
     def test_content(self):
-        self.assertEqual(self.content, appPharma.pkg.ureg('28.349523125000005 percent'))
+        self.assertEqual(self.content, appPharma.pkg.ureg('1000 percent'))
 
     def test_iw(self):
         self.assertEqual(self.iwM, appPharma.pkg.ureg('74.99212598425197 kilogram'))

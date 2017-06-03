@@ -156,7 +156,7 @@ def aw(weight, iwORsize, F = False):
     >>><Quantity(70.4921, 'kilogram')>
     """
     w = weight
-    p = pkg.ureg(iwORsize)
+    p = iwORsize
     if str(p.dimensionality) == '[mass]':
         pa = p.to('kg') + 0.4 * (w - p.to('kg'))
     elif str(p.dimensionality) == '[length]':

@@ -16,7 +16,7 @@ class TestCalculPharma(unittest.TestCase):
         #Body Surface Area
         self.bsa = appPharma.calculPharma.bsa('200lb', '66inch')
         #content
-        self.content = appPharma.calculPharma.content('10oz', '1l')
+        self.content = appPharma.calculPharma.content('10oz/l')
         #Ideal weight
         self.iwM = appPharma.calculPharma.iw('180cm')
         self.iwF = appPharma.calculPharma.iw("5'6", F = True)

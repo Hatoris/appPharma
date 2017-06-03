@@ -1,6 +1,5 @@
 from appPharma import pkg
 import re
-import appPharma.calculPharma
 
 def changeUnits(*units, **kunits):
     """This function @changeUnits('kg', 'umol/l', d = 'unityouwant', z = 'ignore' ) to change unit as wich"""
@@ -19,7 +18,10 @@ def changeUnits(*units, **kunits):
                     if kunits[key] != 'ignore':
                         kvalues[key] = formater(kunit[key]).to(kunits[key])
                     else:
-                        kvalues[key] = formater(kunit[key]) 
+                        if str(type(kunit[key])) != "<class 'bool'>":
+                            kvalues[key] = formater(kunit[key])
+                        else:
+                            kvalues[key] = kunit[key]
             return func(*values, **kvalues)
         return func_wraper
     return units_decorator

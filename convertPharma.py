@@ -1,45 +1,46 @@
-# this script old all method to perform calcul
 # class calculPharma take a sting as input
-from .pkg import *
+from appPharma import pkg
+import re
 
 class convertPharma():
+    """use it to convert an information to multiple one by using "xx to yy ll mm" """
 
-    def __init__(self, p):
-        self._value, self._converts = p.split(' to ')
-        self._listConverts = self._converts.split(' ') 
+    def __init__(self, values):
+        self._value, self._unitToConvert = values.split(" to ") 
+        print(self._unitToConvert) 
+        self._unitToConvert = re.findall(r"\b[a-zA-Z]+\b" , self._unitToConvert)
+        
     
     @property
     def value(self):
         return self._value
         
     @property
-    def converts(self):
-        return self._converts
-        
-    @property
-    def listConverts(self):
-        return self._listConverts
+    def unitToConvert(self):
+        return self._unitToConvert
     
     @property    
     def results(self):
         r = {}
         l = []
-        a = Q_(self.value)
-        for convert in self.listConverts:
-            l.append(str(a.to(convert))) 
+        v = pkg.Q_(self.value)
+        for convert in self._unitToConvert:
+            l.append(str(v.to(convert))) 
         r[self.value] = l
         return r
             
-        
-    
-
-
+    @property
+    def humanRead(self):
+        read = self.results
+        for k in read:
+            for val in read[k]:
+                print(k + " = " + val) 
 
 
 if __name__ == '__main__' :
     c = convertPharma('180cm to inch foot m')
-    c.value
-    c.converts
-    print(c.listConverts)
-    print(c.results())
+    print(c.value) 
+    print(c.unitToConvert)
+    print(c.results)
+    print(c.humanRead)
     

@@ -29,16 +29,23 @@ def changeUnits(*units, **kunits):
 
 def formater(unit):
     """this function match pattern and return pint.quantity"""
-    if re.match("\d+[a-zA-Z]+[/|\*]\d+[a-zA-Z]+", unit):
-        unit1, unit2 = re.findall("\d+[a-z]*", unit)
-        A = pkg.ureg(unit1)
-        B = pkg.ureg(unit2)
-        if re.search("/", unit):
-            return A/B
-        elif re.search("\*", unit):
-            return A*B
-    if re.match("\d+'\d+", unit):
-        foot, inch = re.findall("\d+", unit)
-        size = pkg.ureg(foot + "foot").to("inch") + pkg.ureg(inch + "inch")
-        return size
-    return pkg.ureg(unit)
+    if isinstance(unit, str):
+        if re.match("\d+[a-zA-Z]+[/|\*]\d+[a-zA-Z]+", unit):
+            unit1, unit2 = re.findall("\d+[a-z]*", unit)
+            A = pkg.ureg(unit1)
+            B = pkg.ureg(unit2)
+            if re.search("/", unit):
+                return A/B
+            elif re.search("\*", unit):
+                return A*B
+        if re.match("\d+'\d+", unit):
+            foot, inch = re.findall("\d+", unit)
+            size = pkg.ureg(foot + "foot").to("inch") + pkg.ureg(inch + "inch")
+            return size
+        if pkg.ureg(unit).units == "percent":
+            con = pkg.ureg(unit).magnitude / 100
+            return pkg.ureg(str(con) +"g/ml") 
+        return pkg.ureg(unit)
+    else:
+        return unit
+

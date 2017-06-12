@@ -40,25 +40,20 @@ class concentration:
         return("{} of {} and add {} to get {}".format(self.v1, self.c1, self.v2 - self.v1, self.c2))
     
 
-    def cascadeDilution(self, initConc = "0", initVolume = "0",  nbDilution = 1):
+    def cascadeDilution(self, initConc = "0", finalVolume = "1000ul", dilution = (3/4, 1/2, 1/4, 1/10, 3/40, 1/20, 1/40, 3/400, 1/200, 1/400)):
         I = pkg.ureg(initConc)
         conc = {}
-        dilution = (3/4, 1/2, 1/4, 1/10)
-        conc[1] = I
+        conc[1] = {"concF" : I, "concI" : I, "volumeI" : finalVolume, "volumeD" : 0} 
         try:
-            for x in range(nbDilution):
-                conc[dilution[x]] = I * dilution[x]
-        except IndexError:
-            try:
-                for y in range(nbDilution - 4):
-                    conc[dilution[y]/10] = I * (dilution[y]/10)
-            except IndexError:
-                for z in range(nbDilution - 8):
-                    conc[dilution[z]/100] = I * (dilution[z]/100)
-            
-        
-        for d in sorted(conc, reverse = True) :
-            print ("take {} ".format(conc[d]))
+            for x in range(len(dilution)):
+                dil = {}
+                dil["concF"] = I * dilution[x]
+                conc[dilution[x]] = dil
+        except Exception as e:
+            print(e) 
+        for d in sorted(conc, reverse = True):
+            for u in conc[d]:
+                print ("take {} ".format(conc[d][u]))
         
         
         
@@ -77,6 +72,6 @@ if __name__ == '__main__':
     #A.changeUnits(conc = "ug/ml")
     #A.value
     #print(A.volumeToTake)
-    print(A.cascadeDilution(initConc = "1000ug/ml", nbDilution = 10))
+    print(A.cascadeDilution(initConc = "1000ug/ml"))
 
 

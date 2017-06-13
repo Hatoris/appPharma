@@ -16,7 +16,7 @@ def changeUnits(*units, **kunits):
             if kunit is not None:
                 for key in kunit:
                     if kunits[key] != 'ignore':
-                        kvalues[key] = formater(kunit[key]).to(kunits[key])
+                         kvalues[key] = formater(kunit[key]).to(kunits[key])
                     else:
                         if str(type(kunit[key])) != "<class 'bool'>":
                             kvalues[key] = formater(kunit[key])
@@ -47,5 +47,3 @@ def formater(unit):
     else:
         return unit
 
-if __name__ ==  "__main__":
-    print(formater("5'11"))

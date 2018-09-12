@@ -29,10 +29,15 @@ def changeUnits(*units, **kunits):
 
 def formater(unit):
     """this function match pattern and return pint.quantity"""
+    unit = unit.replace(",", ".")
     if isinstance(unit, str):
-        if re.match("\d+[a-zA-Z]+[/|\*]\d+[a-zA-Z]+", unit):
-            unit1, unit2 = map(pkg.ureg, re.findall("\d+[a-z]*", unit)) 
-            if re.search("/", unit):
+        if re.match(r"((\d+\.\d+|\d+)[a-zA-Z]+[/|\*](\d+\.\d+|\d+)[a-zA-Z]+)", unit):
+            unit1, unit2 = map(
+                        pkg.ureg, 
+                        re.findall(
+                         r"(\d+[\.|\,]\d+[a-zA-Z]*|\d+[a-zA-Z]*)", 
+                         unit))                   
+            if re.search(r"/", unit):
                 return unit1/unit2
             elif re.search ("\*", unit):
                 return unit1*unit2
@@ -42,8 +47,6 @@ def formater(unit):
             return size
         if pkg.ureg(unit).units == "percent":
             con = pkg.ureg(unit).magnitude / 100
-            return pkg.ureg(str(con) + "g/ml") 
+            return pkg.ureg(str(con) + "g/ml")
         return pkg.ureg(unit)
-    else:
-        return unit
 

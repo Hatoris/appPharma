@@ -1,6 +1,7 @@
 import appPharma.wrapper as w
 from appPharma.pkg import ureg
 import unittest
+import re
 
 def func(*args, **kwargs):
     return args, kwargs
@@ -32,6 +33,13 @@ class TestWrapper(unittest.TestCase):
         {"vol" : ureg("1m**3"), 
         "taille" : ureg("1um"), 
         "bob" : ureg("1mg")})))
-             
+
+    def test_formater(self):
+        self.assertEqual(w.formater("12mg/5mL"), ureg("12/5mg/ml"))
+        self.assertEqual( w.formater("0.2mmol/500mL"), ureg("0.2/500mmol/ml"))
+        self.assertEqual( w.formater("50mL/0.2mmol"), ureg("50/0.2ml/mmol"))
+        self.assertEqual( w.formater("50mL/0,2mmol"), ureg("50/0.2ml/mmol"))
+        
+                                                    
 if __name__ == "__main__":
     unittest.main()

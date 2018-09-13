@@ -38,7 +38,15 @@ class TestWrapper(unittest.TestCase):
         self.assertEqual(w.formater("12mg/5mL"), ureg("12/5mg/ml"))
         self.assertEqual( w.formater("0.2mmol/500mL"), ureg("0.2/500mmol/ml"))
         self.assertEqual( w.formater("50mL/0.2mmol"), ureg("50/0.2ml/mmol"))
-        self.assertEqual( w.formater("50mL/0,2mmol"), ureg("50/0.2ml/mmol"))
+        self.assertEqual( w.formater("50mL/0.2mmol"), ureg("50/0.2ml/mmol"))
+
+    def test_formater_size(self):
+        self.assertEqual(w.formater("5'3"), ureg("63 inch"))
+        self.assertEqual(w.formater("10'8"), ureg("128 inch"))
+        
+    def test_formater_percent(self):
+        self.assertEqual(w.formater("12 pct"), ureg("12/100g/mL"))
+        self.assertEqual(w.formater("0.2 percent"), ureg("0.2/100g/mL"))
         
                                                     
 if __name__ == "__main__":

@@ -64,7 +64,7 @@ if __name__ == '__main__':
     C = concentration( c1 = "10ug/ml", c2 = "1ng/ml", v2 = "10ml")
     D = concentration( c1 = "10ug/ml", v1="1ul", v2 = "10ml")
     E = concentration( c1 = "10ug/ml", v1="1ul", c2 = "1ng/ml")
-    #A.value
+    print(A.value)
     #B.value
     #C.value
     #D.value
@@ -72,6 +72,6 @@ if __name__ == '__main__':
     #A.changeUnits(conc = "ug/ml")
     #A.value
     #print(A.volumeToTake)
-    print(A.cascadeDilution(initConc = "1000ug/ml"))
+    #print(A.cascadeDilution(initConc = "1000ug/ml"))
 
 

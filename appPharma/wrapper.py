@@ -29,7 +29,7 @@ def changeUnits(*units, **kunits):
 
 def formater(unit):
     """this function match pattern and return pint.quantity"""
-    unit = unit.replace(",", ".")
+    #unit = unit.replace(",", ".")
     if isinstance(unit, str):
         if re.match(r"((\d+\.\d+|\d+)[a-zA-Z]+[/|\*](\d+\.\d+|\d+)[a-zA-Z]+)", unit):
             unit1, unit2 = map(

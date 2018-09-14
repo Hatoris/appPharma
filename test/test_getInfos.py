@@ -22,6 +22,7 @@ class TestGetInfos(unittest.TestCase):
             bla 0,5 % bla
             bla 12,5 mg/34% bla
         """
+        self.infos =  gi.extract_infos(self.test)
 
     def test_units(self):
         self.assertEqual(
@@ -43,8 +44,11 @@ class TestGetInfos(unittest.TestCase):
             ])
 
     def test_split(self):
-        infos =  gi.extract_infos(self.test)
-        print(gi.split_infos(infos))
+        self.assertEqual(gi.split_infos(self.infos), "")
+
+    def test_pintify(self):
+        s = gi.split_infos(self.infos)
+        print(gi.pintify(self.infos))
 
 if __name__ == "__main__":
     unittest.main()

@@ -42,6 +42,9 @@ class TestGetInfos(unittest.TestCase):
                  '12,5 mg/34%'
             ])
 
+    def test_split(self):
+        infos =  gi.extract_infos(self.test)
+        print(gi.split_infos(infos))
 
 if __name__ == "__main__":
     unittest.main()

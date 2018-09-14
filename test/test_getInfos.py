@@ -44,11 +44,26 @@ class TestGetInfos(unittest.TestCase):
             ])
 
     def test_split(self):
-        self.assertEqual(gi.split_infos(self.infos), "")
+        self.assertEqual(gi.split_infos(self.infos), [
+            [('100', 'mg/mL')], 
+            [('0,5', 'mEq/kg/h')], 
+            [('25', 'mg/ml')], 
+            [('0.3', 'mmol/h/kg')], 
+            [('48,5', 'g')], 
+            [('0,05', 'mg/ml')], 
+            [('51', 'mg')], 
+            [('0.5', 'g')], 
+            [('123', 'mg/'), ('12', 'mL')], 
+            [('0,5', 'mg/'), ('0,2', 'mg')], 
+            [('12', 'mmol/'), ('34', 'g/'), ('0.2', 'mg')], 
+            [('12', '%')], 
+            [('0,5', '%')], 
+            [('12,5', 'mg/'), ('34', '%')]
+        ])
 
-    def test_pintify(self):
+    def test_split_units(self):
         s = gi.split_infos(self.infos)
-        print(gi.pintify(self.infos))
+        print(gi.split_units(s))
 
 if __name__ == "__main__":
     unittest.main()

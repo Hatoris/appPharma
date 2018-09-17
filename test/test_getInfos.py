@@ -2,6 +2,7 @@ from appPharma import getInfos as gi
 from appPharma.pkg import ureg
 import unittest
 import re
+from pprintpp import pprint
 
 class TestGetInfos(unittest.TestCase):
 
@@ -63,7 +64,13 @@ class TestGetInfos(unittest.TestCase):
 
     def test_split_units(self):
         s = gi.split_infos(self.infos)
-        print(gi.split_units(s))
+        pprint(gi.pintify(self.infos))
+
+    def test_replace_unreadable(self):
+        rur = gi.replace_unreadable
+        self.assertEqual(rur("12,5mg/mL"), "12.5mg/mL")
+        self.assertEqual(rur("3.5%"), "3.5pct")
+        self.assertEqual(rur("2 h"), "2 hour")
 
 if __name__ == "__main__":
     unittest.main()

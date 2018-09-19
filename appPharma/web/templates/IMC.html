@@ -1,0 +1,28 @@
+{% extends "base_calcul.html" %}
+
+{% block calculateur %}
+<h1>Calculateur</h1>
+<form action="" method="post">
+    <input type="text" name="taille" value="180cm" />
+   <input type="text" name="poids" value="180 lb" />
+    <input type="submit" value="Envoyer" />
+</form>
+{% endblock %}
+
+{% block formule %}
+<h1>Formule</h1>
+<div>
+    <p>$$IMC = \frac{Poids}{Taille^2}$$</p>
+    <ul>
+         <li>Poids : kg</li>
+        <li>Taille : m</li>   
+    </ul>
+</div>
+{% endblock %}
+
+{% block informations %}
+<h1>Informations</h1>
+<div>
+    <p>L'indice de masse corporelle permet de </p>
+</div>
+{% endblock %}

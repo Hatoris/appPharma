@@ -2,9 +2,11 @@
 
 {% block calculateur %}
 <form action="" method="post">
-    <input type="text" name="taille" placeholder="180cm", value="{{ taille }}" />
    <input type="text" name="poids" placeholder="180 lb", value="{{ poids }}" />
-    <input type="submit" value="Envoyer" />
+    <input type="text" name="taille" placeholder="180cm/75 kg poids ideal", value="{{ taille }}" />
+        <input type="checkbox" id="checkbox_F" name="femme", {{ checked }} />
+        <label for="checkbox_F">Femme</label>
+    <input class="button" type="submit" value="Envoyer" />
 </form>
 <div>
 <p>Resultat : 
